@@ -38,7 +38,7 @@ ORDER BY 1,2
 
 -- Countries with Highest Infection rate compared to Population
 
-SELECT location, population, MAX(total_cases) AS [Highest Infection Count], MAX((total_cases/population)*100) AS [Percentage of Infected Population] 
+SELECT location, population, ISNULL(MAX(total_cases),0) AS [Highest Infection Count], ISNULL(MAX((total_cases/population)*100),0) AS [Percentage of Infected Population] 
 FROM coviddeaths
 --WHERE location = 'India'
 WHERE continent IS NOT NULL
@@ -47,7 +47,7 @@ ORDER BY [Percentage of Infected Population] DESC
 
 -- Countries with Highest Death count per Population
 
-SELECT location, MAX(CAST(total_deaths AS int)) AS [Total Death Count]
+SELECT location, ISNULL(MAX(CAST(total_deaths AS int)),0) AS [Total Death Count]
 FROM coviddeaths
 WHERE continent IS NOT NULL
 GROUP BY location
@@ -84,7 +84,7 @@ WHERE continent IS NOT NULL
 -- Total population vs Vaccinations
 -- Shows Percentage of Population that has received at least one covid vaccine
 
-SELECT dea.continent, dea.location, dea.date, dea.population, vac.new_vaccinations
+SELECT dea.continent, dea.location, dea.date, dea.population, ISNULL(vac.new_vaccinations,0)
 FROM coviddeaths dea
 JOIN covidvaccinations vac
 ON dea.location = vac.location

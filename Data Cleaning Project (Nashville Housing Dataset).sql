@@ -121,3 +121,7 @@ SELECT * FROM NashvilleDC
 
 ALTER TABLE NashvilleDC
 DROP COLUMN propertyaddress, Owneraddress, taxdistrict 
+
+
+
+
